@@ -10,9 +10,13 @@ class Repository implements RepositoryInterface
 
     protected static $model;
 
-    protected static $success_body = ['status' => 'success', 'status_number' => 200 , 'value' => ''];
+    public static function successBody(string $message):array {
+        return ['status' => 'success', 'status_number' => 200 , 'value' => $message];
+    }
 
-    protected static $error_body = ['status' => 'error', 'status_number' => 500 , 'value' => ''];
+    public static function errorBody(string $message):array {
+        return ['status' => 'error', 'status_number' => 500 , 'value' => $message];
+    }
 
     public static function getModel(): Model {
         return app(static::$model);
