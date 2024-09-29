@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticlePostRequest;
+use App\Http\Requests\ArticleEditRequest;
 use Illuminate\Support\Str;
 use App\Repositories\ArticleRepository;
 use App\Enum\ArticleStatusEnum;
@@ -24,7 +25,9 @@ class ArticleController extends Controller
         return redirect()->back()->with($article['status'], $article['value']);
     }
 
-    public function edit() {
+    public function edit($id, ArticleEditRequest $request) {
+        $article = ArticleRepository::update($id, $request->all());
+        return redirect()->back()->with($article['status'], $article['value']);
     }
 
     public function post($id) {

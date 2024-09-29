@@ -30,12 +30,12 @@ class RemoveArticleTest extends TestCase
     public function test_remove_with_no_id(): void
     {
         $response = $this->delete('article/a8ed0879-0c96-49bb-9dca-5598e94b04b7');
-        $response->assertSessionHas('error', 'Article not found.');
+        $response->assertSessionHas('error', 'Artigo não foi encontrado.');
     }
 
     public function test_remove_with_valid_id(): void
     {
         $response = $this->delete('article/' . $this->article->id);
-        $response->assertSessionHas('success', 'Article removed.');
+        $response->assertSessionHas('success', 'Artigo foi removido.');
     }
 }

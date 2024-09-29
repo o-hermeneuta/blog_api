@@ -30,12 +30,12 @@ class HideArticleTest extends TestCase
     public function test_hide_with_no_id(): void
     {
         $response = $this->patch('article/a8ed0879-0c96-49bb-9dca-5598e94b04b7/hide');
-        $response->assertSessionHas('error', 'Article not found.');
+        $response->assertSessionHas('error', 'Artigo não foi encontrado.');
     }
 
     public function test_hide_with_valid_id(): void
     {
         $response = $this->patch('article/' . $this->article->id . '/hide');
-        $response->assertSessionHas('success', 'Article not posted anymore.');
+        $response->assertSessionHas('success', 'Artigo não esta mais postado.');
     }
 }

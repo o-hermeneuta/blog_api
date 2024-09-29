@@ -17,6 +17,7 @@ Route::prefix('/articles')->group(function () {
 
 Route::prefix('/article')->group(function () {
     Route::post('/', [ArticleController::class,'make']);
+    Route::put('/{id}', [ArticleController::class,'edit']);
     Route::patch('/{id}/post', [ArticleController::class,'post']);
     Route::patch('/{id}/hide', [ArticleController::class,'hide']);
     Route::patch('/{id}/rate', [ArticleController::class,'rate']);

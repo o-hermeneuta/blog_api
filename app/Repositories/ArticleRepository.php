@@ -20,30 +20,39 @@ class ArticleRepository extends Repository
         }
     }
 
+    public static function update(string $id, $body) {
+        try {
+            parent::update($id, $body);
+            return parent::successBody('Artigo atualizado com sucesso.');
+        } catch (\Throwable $th) {
+            return parent::errorBody('Artigo não foi encontrado.');
+        }
+    }
+
     public static function delete($id): array {
         try {
             parent::delete($id);
-            return parent::successBody('Article removed.');
+            return parent::successBody('Artigo foi removido.');
         } catch (\Throwable $th) {
-            return parent::errorBody('Article not found.');
+            return parent::errorBody('Artigo não foi encontrado.');
         }
     }
 
     public static function post($id): array {
         try {
             parent::update($id, ['status' => ArticleStatusEnum::Posted]);
-            return parent::successBody('Article posted.');
+            return parent::successBody('Artigo postado.');
         } catch (\Throwable $th) {
-            return parent::errorBody('Article not found.');
+            return parent::errorBody('Artigo não foi encontrado.');
         }
     }
 
     public static function hide($id): array {
         try {
             parent::update($id, ['status' => ArticleStatusEnum::Created]);
-            return parent::successBody('Article not posted anymore.');
+            return parent::successBody('Artigo não esta mais postado.');
         } catch (\Throwable $th) {
-            return parent::errorBody('Article not found.');
+            return parent::errorBody('Artigo não foi encontrado.');
         }
     }
 
@@ -51,9 +60,9 @@ class ArticleRepository extends Repository
         try {
             $article = parent::read($id, ['status' => ArticleStatusEnum::Created]);
             $article->update(['positive_reaction' => $article->positive_reaction + 1]);
-            return parent::successBody('Article gain new rate.');
+            return parent::successBody('Artigo ganhou nova avaliação.');
         } catch (\Throwable $th) {
-            return parent::errorBody('Article not found.');
+            return parent::errorBody('Artigo não foi encontrado.');
         }
     }
 }

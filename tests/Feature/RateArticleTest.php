@@ -30,12 +30,12 @@ class RateArticleTest extends TestCase
     public function test_rate_with_no_id(): void
     {
         $response = $this->patch('article/a8ed0879-0c96-49bb-9dca-5598e94b04b7/rate');
-        $response->assertSessionHas('error', 'Article not found.');
+        $response->assertSessionHas('error', 'Artigo não foi encontrado.');
     }
 
     public function test_rate_with_valid_id(): void
     {
         $response = $this->patch('article/' . $this->article->id . '/rate');
-        $response->assertSessionHas('success', 'Article gain new rate.');
+        $response->assertSessionHas('success', 'Artigo ganhou nova avaliação.');
     }
 }
