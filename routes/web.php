@@ -15,6 +15,11 @@ Route::prefix('/articles')->group(function () {
     Route::namespace('articles-create')->get('/create', [ArticleController::class,'create']);
 });
 
+Route::prefix('/tag')->group(function () {
+    Route::patch('/{article_id}', [ArticleController::class,'put_tag']);
+    Route::delete('/{article_id}', [ArticleController::class,'remove_tag']);
+});
+
 Route::prefix('/article')->group(function () {
     Route::post('/', [ArticleController::class,'make']);
     Route::put('/{id}', [ArticleController::class,'edit']);

@@ -21,7 +21,7 @@ class Article extends Model
         "in_carrousel"
     ];
 
-
-
-
+    public function tags(){
+        return $this->belongsToMany(Tag::class, 'tag_article');
+    }
 }

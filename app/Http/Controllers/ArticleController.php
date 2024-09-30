@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticlePostRequest;
 use App\Http\Requests\ArticleEditRequest;
+use App\Http\Requests\TagRequest;
+use App\Http\Requests\TagRemoveRequest;
 use Illuminate\Support\Str;
 use App\Repositories\ArticleRepository;
+use App\Repositories\ArticleTagRepository;
 use App\Enum\ArticleStatusEnum;
 
 class ArticleController extends Controller
@@ -21,39 +24,43 @@ class ArticleController extends Controller
     }
 
     public function make(ArticlePostRequest $request) {
-        $article = ArticleRepository::create($request->all());
-        return redirect()->back()->with($article['status'], $article['value']);
+        $res = ArticleRepository::create($request->all());
+        return redirect()->back()->with($res['status'], $res['value']);
     }
 
     public function edit($id, ArticleEditRequest $request) {
-        $article = ArticleRepository::update($id, $request->all());
-        return redirect()->back()->with($article['status'], $article['value']);
+        $res = ArticleRepository::update($id, $request->all());
+        return redirect()->back()->with($res['status'], $res['value']);
     }
 
     public function post($id) {
-        $article = ArticleRepository::post($id);
-        return redirect()->back()->with($article["status"],$article["value"]);
+        $res = ArticleRepository::post($id);
+        return redirect()->back()->with($res["status"], $res["value"]);
     }
 
     public function hide($id) {
-        $article = ArticleRepository::hide($id);
-        return redirect()->back()->with($article["status"],$article["value"]);
+        $res = ArticleRepository::hide($id);
+        return redirect()->back()->with($res["status"], $res["value"]);
     }
 
     public function rate($id) {
-        $article = ArticleRepository::rate($id);
-        return redirect()->back()->with($article["status"],$article["value"]);
+        $res = ArticleRepository::rate($id);
+        return redirect()->back()->with($res["status"], $res["value"]);
     }
 
     public function remove($id) {
-        $article = ArticleRepository::delete($id);
-        return redirect()->back()->with($article["status"],$article["value"]);
+        $res = ArticleRepository::delete($id);
+        return redirect()->back()->with($res["status"], $res["value"]);
     }
 
-    public function put_tag() {
+    public function put_tag($article_id, TagRequest $request) {
+        $res = ArticleTagRepository::putTag($article_id, $request->input('name'));
+        return redirect()->back()->with($res["status"], $res["value"]);
     }
 
-    public function remove_tag() {
+    public function remove_tag($article_id, TagRemoveRequest $request) {
+        $res = ArticleTagRepository::removeTag($article_id, $request->input('name'));
+        return redirect()->back()->with($res["status"], $res["value"]);
     }
 
     public function list_top() {
