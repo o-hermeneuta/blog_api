@@ -7,7 +7,7 @@
     </form>
     <h1>Artigos</h1>
     <a href="/articles/create">criar</a>
-    @foreach ($articles as $article)
+    @foreach ($page['items'] as $article)
         <article>
             <h2>{{$article->title}}</h2>
             <a>editar</a>

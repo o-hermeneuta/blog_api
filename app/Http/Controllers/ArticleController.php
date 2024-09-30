@@ -16,7 +16,7 @@ class ArticleController extends Controller
 {
 
     public function index(){
-        return view('Admin.Articles.index', ['articles' => Article::all()]);
+        return view('Admin.Articles.index', ['page' => ArticleRepository::list(1)]);
     }
 
     public function create(){

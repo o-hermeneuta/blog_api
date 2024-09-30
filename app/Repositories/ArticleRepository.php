@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Illuminate\Support\Str;
 use App\Models\Article;
 use App\Enum\ArticleStatusEnum;
+use App\Services\ArticleService;
 
 class ArticleRepository extends Repository
 {
@@ -64,5 +65,26 @@ class ArticleRepository extends Repository
         } catch (\Throwable $th) {
             return parent::errorBody('Artigo não foi encontrado.');
         }
+    }
+
+    public static function list($page) {
+        return ArticleService::postList()->paginate($page, 10);
+    }
+
+    public static function postedList($page) {
+        return ArticleService::postList()->paginate($page, 10, ["field" => "status", "value" => 'P']);
+    }
+
+    public static function carrouselList($page) {
+        return ArticleService::postList()->paginate($page, 10, ["field" => "in_carrousel", "value" => true]);
+    }
+
+    public static function listTopTen() {
+        $items = ArticleService::resumeList()->take(10)->get()->toArray();
+        return [ "items" => $items ];
+    }
+
+    public static function listTagPosts($page, $tagName) {
+        return ArticleService::tagList($tagName)->paginate($page, 10, ["field" => "in_carrousel", "value" => true]);
     }
 }
