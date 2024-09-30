@@ -14,6 +14,6 @@ class TagRepository extends Repository
     }
 
     public static function findByName($name) {
-         return self::getModel()::where('name', 'like', '%' . $name . '%')->first();
+         return self::getModel()::where('name', 'like', '%' . Str::slug($name) . '%')->first();
     }
 }
